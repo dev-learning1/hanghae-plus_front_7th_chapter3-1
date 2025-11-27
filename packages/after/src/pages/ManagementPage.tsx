@@ -6,7 +6,6 @@ import {
   EntityForm,
   EntityStats,
   EntityTable,
-  EntityToggle,
   InlineAlert,
   buildPostStats,
   buildStats,
@@ -176,59 +175,45 @@ export const ManagementPage = () => {
   const entityLabel = entityCopy[entityType].label;
 
   return (
-    <section className="mx-auto flex w-full max-w-6xl flex-col gap-6">
-      <header className="space-y-4 rounded-2xl border bg-background px-6 py-5 shadow-sm">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Admin Studio
-        </p>
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <h1 className="text-2xl font-semibold text-foreground">엔티티 관리</h1>
-            <p className="text-muted-foreground text-sm">
-              Atomic 카테고리 대신 실제 업무 단위로 구성했습니다.
-            </p>
-          </div>
-          <EntityToggle value={entityType} onChange={setEntityType} />
-        </div>
-      </header>
-
-      {alert && (
-        <InlineAlert variant={alert.variant} onClose={() => setAlert(null)}>
-          {alert.message}
-        </InlineAlert>
-      )}
-
-      <EntityStats
-        title={`${entityLabel} 현황`}
-        description={entityCopy[entityType].description}
-        metrics={stats}
-      />
-
-      <div className="rounded-2xl border bg-background px-6 py-5 shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h2 className="text-lg font-semibold text-foreground">{entityLabel} 목록</h2>
-            <p className="text-muted-foreground text-sm">
-              상태 변경, 정렬, 액션을 한 곳에서 처리합니다.
-            </p>
-          </div>
-          <Button onClick={openCreateDialog}>새로 만들기</Button>
+    <section className="min-h-screen bg-[#f0f0f0] py-6">
+      <div className="mx-auto w-full max-w-[1200px] space-y-5 px-5">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold text-[#333333]">관리 시스템</h1>
+          <p className="text-sm text-[#666666]">사용자와 게시글을 관리하세요</p>
         </div>
 
-        <div className="mt-6">
-          {loading ? (
-            <div className="grid place-items-center rounded-xl border border-dashed py-16 text-sm text-muted-foreground">
-              데이터를 불러오는 중입니다...
-            </div>
-          ) : (
-            <EntityTable
-              entityType={entityType}
-              data={entities}
-              onEdit={openEditDialog}
-              onDelete={handleDelete}
-              onStatusAction={handleStatusAction}
-            />
-          )}
+        {alert && (
+          <InlineAlert variant={alert.variant} onClose={() => setAlert(null)}>
+            {alert.message}
+          </InlineAlert>
+        )}
+
+        <div className="rounded-lg border border-[#dddddd] bg-white p-5 shadow-sm">
+          <EntityStats
+            className="border-b border-[#cccccc] pb-4"
+            title={`${entityLabel} 현황`}
+            description={entityCopy[entityType].description}
+            metrics={stats}
+            entityType={entityType}
+            onEntityChange={setEntityType}
+          />
+
+          <div className="mt-4">
+            {loading ? (
+              <div className="grid place-items-center rounded border border-dashed border-[#cccccc] py-16 text-sm text-[#666666]">
+                데이터를 불러오는 중입니다...
+              </div>
+            ) : (
+                <EntityTable
+                  entityType={entityType}
+                  data={entities}
+                  onEdit={openEditDialog}
+                  onDelete={handleDelete}
+                  onStatusAction={handleStatusAction}
+                  onOpenCreateDialog={openCreateDialog}
+                />
+            )}
+          </div>
         </div>
       </div>
 

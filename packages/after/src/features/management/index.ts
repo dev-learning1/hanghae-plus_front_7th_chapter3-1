@@ -1,4 +1,3 @@
-export * from "./components/EntityToggle";
 export * from "./components/EntityStats";
 export * from "./components/EntityTable";
 export * from "./components/EntityDialog";

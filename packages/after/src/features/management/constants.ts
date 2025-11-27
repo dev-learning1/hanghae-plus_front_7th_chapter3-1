@@ -77,8 +77,8 @@ export const buildPostStats = (data: Post[]): StatMetric[] => {
     { label: "전체 게시글", value: data.length, tone: "default" },
     { label: "게시됨", value: published, tone: "success" },
     { label: "임시저장", value: draft, tone: "warning" },
-    { label: "보관됨", value: archived, tone: "muted" },
-    { label: "총 조회수", value: totalViews, tone: "danger" },
+    { label: "보관됨", value: archived, tone: "danger" },
+    { label: "총 조회수", value: totalViews, tone: "muted" },
   ];
 };
 

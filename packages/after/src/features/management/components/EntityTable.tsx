@@ -1,7 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { PaginationControls } from "@/components/ui/pagination-controls";
 import {
   Table,
   TableBody,
@@ -14,6 +14,7 @@ import type { Post } from "@/services/postService";
 import type { User } from "@/services/userService";
 import type { Entity, EntityType, StatusAction } from "../types";
 import { StatusBadge, type StatusBadgeTone } from "./StatusBadge";
+import { Input } from "@/components/ui/input";
 
 interface EntityTableProps {
   entityType: EntityType;
@@ -21,6 +22,7 @@ interface EntityTableProps {
   onEdit: (entity: Entity) => void;
   onDelete: (id: number) => void;
   onStatusAction?: (id: number, action: StatusAction) => void;
+  onOpenCreateDialog: () => void;
 }
 
 const userColumns = [
@@ -63,14 +65,18 @@ const badgeToneMap: Record<string, { tone: StatusBadgeTone; label: string }> = {
 const formatNumber = (value: number | undefined) =>
   new Intl.NumberFormat("ko-KR").format(value ?? 0);
 
+const PAGE_SIZE = 10;
+
 export const EntityTable = ({
   entityType,
   data,
   onEdit,
   onDelete,
   onStatusAction,
+  onOpenCreateDialog,
 }: EntityTableProps) => {
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
 
   const filtered = useMemo(() => {
     if (!search) return data;
@@ -84,20 +90,40 @@ export const EntityTable = ({
     );
   }, [search, data]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [search, data, entityType]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+
+  useEffect(() => {
+    setPage((prev) => Math.min(prev, totalPages));
+  }, [totalPages]);
+
+  const paginated = useMemo(() => {
+    const start = (page - 1) * PAGE_SIZE;
+    return filtered.slice(start, start + PAGE_SIZE);
+  }, [filtered, page]);
+
   const columns = entityType === "user" ? userColumns : postColumns;
 
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <Input
-          placeholder="검색어를 입력하세요"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-          className="max-w-xs"
-        />
-        <p className="text-sm text-muted-foreground">
-          총 {filtered.length.toLocaleString()}건
-        </p>
+        <div className="flex items-center gap-3">
+          <Input
+            placeholder="검색어를 입력하세요"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            className="max-w-xs"
+          />
+          <p className="whitespace-nowrap text-sm text-muted-foreground">
+            총 {filtered.length.toLocaleString()}건
+          </p>
+        </div>
+        <Button variant="primary" onClick={onOpenCreateDialog}>
+          새로 만들기
+        </Button>
       </div>
 
       <div className="overflow-hidden rounded-xl border bg-background">
@@ -117,7 +143,7 @@ export const EntityTable = ({
                 </TableCell>
               </TableRow>
             ) : (
-              filtered.map((row) => (
+              paginated.map((row) => (
                 <TableRow key={row.id}>
                   {columns.map((column) => (
                     <TableCell key={column.key}>
@@ -137,6 +163,14 @@ export const EntityTable = ({
           </TableBody>
         </Table>
       </div>
+
+      <PaginationControls
+        page={page}
+        totalPages={totalPages}
+        onPrev={() => setPage((prev) => Math.max(1, prev - 1))}
+        onNext={() => setPage((prev) => Math.min(totalPages, prev + 1))}
+        disabledNext={filtered.length === 0 || page === totalPages}
+      />
     </div>
   );
 };
