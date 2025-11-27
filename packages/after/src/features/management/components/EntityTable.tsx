@@ -45,7 +45,7 @@ const postColumns = [
   { key: "actions", label: "관리" },
 ] as const;
 
-const badgeToneMap = {
+const badgeToneMap: Record<string, { tone: StatusBadgeTone; label: string }> = {
   active: { tone: "success", label: "활성" },
   inactive: { tone: "warning", label: "비활성" },
   suspended: { tone: "danger", label: "정지" },
@@ -58,7 +58,7 @@ const badgeToneMap = {
   development: { tone: "primary", label: "Development" },
   design: { tone: "warning", label: "Design" },
   accessibility: { tone: "danger", label: "Accessibility" },
-} as const satisfies Record<string, { tone: StatusBadgeTone; label: string }>;
+};
 
 const formatNumber = (value: number | undefined) =>
   new Intl.NumberFormat("ko-KR").format(value ?? 0);
@@ -117,25 +117,22 @@ export const EntityTable = ({
                 </TableCell>
               </TableRow>
             ) : (
-              filtered.map((entity) => {
-                const row = entity as User & Post;
-                return (
-                  <TableRow key={row.id}>
-                    {columns.map((column) => (
-                      <TableCell key={column.key}>
-                        {renderCell({
-                          entityType,
-                          row,
-                          column: column.key,
-                          onEdit,
-                          onDelete,
-                          onStatusAction,
-                        })}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                );
-              })
+              filtered.map((row) => (
+                <TableRow key={row.id}>
+                  {columns.map((column) => (
+                    <TableCell key={column.key}>
+                      {renderCell({
+                        entityType,
+                        row,
+                        column: column.key,
+                        onEdit,
+                        onDelete,
+                        onStatusAction,
+                      })}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
             )}
           </TableBody>
         </Table>
@@ -146,7 +143,7 @@ export const EntityTable = ({
 
 type RenderCellProps = {
   entityType: EntityType;
-  row: User & Post;
+  row: Entity;
   column: string;
   onEdit: (entity: Entity) => void;
   onDelete: (id: number) => void;
@@ -172,40 +169,8 @@ const renderCell = ({
         >
           수정
         </Button>
-        {entityType === "post" && (
-          <>
-            {row.status === "draft" && (
-              <Button
-                type="button"
-                size="sm"
-                variant="success"
-                onClick={() => onStatusAction?.(row.id, "publish")}
-              >
-                게시
-              </Button>
-            )}
-            {row.status === "published" && (
-              <Button
-                type="button"
-                size="sm"
-                variant="outline"
-                onClick={() => onStatusAction?.(row.id, "archive")}
-              >
-                보관
-              </Button>
-            )}
-            {row.status === "archived" && (
-              <Button
-                type="button"
-                size="sm"
-                variant="primary"
-                onClick={() => onStatusAction?.(row.id, "restore")}
-              >
-                복원
-              </Button>
-            )}
-          </>
-        )}
+        {entityType === "post" &&
+          renderPostActions(row as Post, onStatusAction)}
         <Button
           type="button"
           size="sm"
@@ -244,4 +209,42 @@ const renderCell = ({
       return post[column as keyof Post];
   }
 };
+
+const renderPostActions = (
+  row: Post,
+  onStatusAction?: (id: number, action: StatusAction) => void,
+) => (
+  <>
+    {row.status === "draft" && (
+      <Button
+        type="button"
+        size="sm"
+        variant="success"
+        onClick={() => onStatusAction?.(row.id, "publish")}
+      >
+        게시
+      </Button>
+    )}
+    {row.status === "published" && (
+      <Button
+        type="button"
+        size="sm"
+        variant="outline"
+        onClick={() => onStatusAction?.(row.id, "archive")}
+      >
+        보관
+      </Button>
+    )}
+    {row.status === "archived" && (
+      <Button
+        type="button"
+        size="sm"
+        variant="primary"
+        onClick={() => onStatusAction?.(row.id, "restore")}
+      >
+        복원
+      </Button>
+    )}
+  </>
+);
 
