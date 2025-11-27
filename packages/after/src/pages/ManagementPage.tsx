@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 
-import { Button } from "@/components/ui/button";
 import {
   EntityDialog,
   EntityForm,
@@ -175,11 +174,11 @@ export const ManagementPage = () => {
   const entityLabel = entityCopy[entityType].label;
 
   return (
-    <section className="min-h-screen bg-[#f0f0f0] py-6">
+    <section className="min-h-screen bg-[color:var(--ds-color-neutral-100)] py-6">
       <div className="mx-auto w-full max-w-[1200px] space-y-5 px-5">
         <div className="space-y-1">
-          <h1 className="text-2xl font-bold text-[#333333]">관리 시스템</h1>
-          <p className="text-sm text-[#666666]">사용자와 게시글을 관리하세요</p>
+          <h1 className="text-2xl font-bold text-[color:var(--ds-color-text-primary)]">관리 시스템</h1>
+          <p className="text-sm text-[color:var(--ds-color-text-muted)]">사용자와 게시글을 관리하세요</p>
         </div>
 
         {alert && (
@@ -188,9 +187,9 @@ export const ManagementPage = () => {
           </InlineAlert>
         )}
 
-        <div className="rounded-lg border border-[#dddddd] bg-white p-5 shadow-sm">
+        <div className="rounded-lg border border-[color:var(--ds-color-neutral-200)] bg-[color:var(--ds-color-surface-base)] p-5 shadow-sm">
           <EntityStats
-            className="border-b border-[#cccccc] pb-4"
+            className="border-b border-[color:var(--ds-color-neutral-200)] pb-4"
             title={`${entityLabel} 현황`}
             description={entityCopy[entityType].description}
             metrics={stats}
@@ -200,18 +199,18 @@ export const ManagementPage = () => {
 
           <div className="mt-4">
             {loading ? (
-              <div className="grid place-items-center rounded border border-dashed border-[#cccccc] py-16 text-sm text-[#666666]">
+              <div className="grid place-items-center rounded border border-dashed border-[color:var(--ds-color-neutral-200)] py-16 text-sm text-[color:var(--ds-color-text-muted)]">
                 데이터를 불러오는 중입니다...
               </div>
             ) : (
-                <EntityTable
-                  entityType={entityType}
-                  data={entities}
-                  onEdit={openEditDialog}
-                  onDelete={handleDelete}
-                  onStatusAction={handleStatusAction}
-                  onOpenCreateDialog={openCreateDialog}
-                />
+              <EntityTable
+                entityType={entityType}
+                data={entities}
+                onEdit={openEditDialog}
+                onDelete={handleDelete}
+                onStatusAction={handleStatusAction}
+                onOpenCreateDialog={openCreateDialog}
+              />
             )}
           </div>
         </div>

@@ -15,24 +15,29 @@ type ToneKey = NonNullable<StatMetric["tone"]>;
 
 const toneStyles: Record<ToneKey, { container: string; value: string }> = {
   default: {
-    container: "bg-[#e3f2fd] border-[#90caf9]",
-    value: "text-[#1976d2]",
+    container:
+      "bg-[color:var(--ds-color-brand-primary-50)] border-[color:var(--ds-color-brand-primary-200)]",
+    value: "text-[color:var(--ds-color-brand-primary-500)]",
   },
   success: {
-    container: "bg-[#e8f5e9] border-[#81c784]",
-    value: "text-[#388e3c]",
+    container:
+      "bg-[color:var(--ds-color-feedback-success-50)] border-[color:var(--ds-color-feedback-success-200)]",
+    value: "text-[color:var(--ds-color-feedback-success-500)]",
   },
   warning: {
-    container: "bg-[#fff3e0] border-[#ffb74d]",
-    value: "text-[#f57c00]",
+    container:
+      "bg-[color:var(--ds-color-feedback-warning-50)] border-[color:var(--ds-color-feedback-warning-200)]",
+    value: "text-[color:var(--ds-color-feedback-warning-500)]",
   },
   danger: {
-    container: "bg-[#ffebee] border-[#e57373]",
-    value: "text-[#d32f2f]",
+    container:
+      "bg-[color:var(--ds-color-feedback-danger-50)] border-[color:var(--ds-color-feedback-danger-200)]",
+    value: "text-[color:var(--ds-color-feedback-danger-500)]",
   },
   muted: {
-    container: "bg-[#f5f5f5] border-[#bdbdbd]",
-    value: "text-[#424242]",
+    container:
+      "bg-[color:var(--ds-color-neutral-100)] border-[color:var(--ds-color-neutral-300)]",
+    value: "text-[color:var(--ds-color-text-secondary)]",
   },
 };
 
@@ -55,10 +60,12 @@ export const EntityStats = ({
     <section className={cn("space-y-4", className)}>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="space-y-1">
-          <p className="text-lg font-bold text-[#333333]">{title}</p>
-          {description && <p className="text-sm text-[#666666]">{description}</p>}
+          <p className="text-lg font-bold text-[color:var(--ds-color-text-primary)]">{title}</p>
+          {description && (
+            <p className="text-sm text-[color:var(--ds-color-text-muted)]">{description}</p>
+          )}
         </div>
-        <div className="flex rounded-[3px] border border-[#999999] bg-[#f5f5f5] p-1">
+        <div className="flex rounded-[3px] border border-[color:var(--ds-color-neutral-300)] bg-[color:var(--ds-color-neutral-100)] p-1">
           {toggleOptions.map((option) => {
             const isActive = option.value === entityType;
             return (
@@ -68,8 +75,8 @@ export const EntityStats = ({
                 className={cn(
                   "min-w-[96px] rounded-[3px] px-4 py-2 text-sm font-medium transition",
                   isActive
-                    ? "bg-[#1976d2] text-white shadow-sm"
-                    : "text-[#333333]",
+                    ? "bg-[color:var(--ds-color-brand-primary-500)] text-[color:var(--ds-color-text-inverse)] shadow-sm"
+                    : "text-[color:var(--ds-color-text-primary)]",
                 )}
                 onClick={() => {
                   if (isActive) return;
@@ -90,12 +97,9 @@ export const EntityStats = ({
           return (
             <div
               key={`${metric.label}-${index}`}
-              className={cn(
-                "rounded-[3px] border px-4 py-3",
-                tone.container,
-              )}
+              className={cn("rounded-[3px] border px-4 py-3", tone.container)}
             >
-              <p className="text-xs font-medium uppercase tracking-wide text-[#666666]">
+              <p className="text-xs font-medium uppercase tracking-wide text-[color:var(--ds-color-text-muted)]">
                 {metric.label}
               </p>
               <p
@@ -107,7 +111,7 @@ export const EntityStats = ({
                 {metric.value.toLocaleString()}
               </p>
               {metric.helper && (
-                <p className="mt-1 text-xs text-[#666666]">{metric.helper}</p>
+                <p className="mt-1 text-xs text-[color:var(--ds-color-text-muted)]">{metric.helper}</p>
               )}
             </div>
           );

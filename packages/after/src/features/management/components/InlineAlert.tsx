@@ -6,9 +6,11 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        info: "border-sky-200 bg-sky-50 text-sky-900",
-        success: "border-emerald-200 bg-emerald-50 text-emerald-900",
-        error: "border-rose-200 bg-rose-50 text-rose-900",
+        info: "border-[color:var(--ds-color-feedback-info-200)] bg-[color:var(--ds-color-feedback-info-50)] text-[color:var(--ds-color-feedback-info-700)]",
+        success:
+          "border-[color:var(--ds-color-feedback-success-200)] bg-[color:var(--ds-color-feedback-success-50)] text-[color:var(--ds-color-feedback-success-700)]",
+        error:
+          "border-[color:var(--ds-color-feedback-danger-200)] bg-[color:var(--ds-color-feedback-danger-50)] text-[color:var(--ds-color-feedback-danger-700)]",
       },
     },
     defaultVariants: {
@@ -36,7 +38,7 @@ export const InlineAlert = ({ title, children, variant, onClose }: InlineAlertPr
             type="button"
             onClick={onClose}
             aria-label="알림 닫기"
-            className="pointer-events-auto rounded-full p-1 text-current transition hover:bg-black/10"
+            className="pointer-events-auto rounded-full p-1 text-current transition hover:bg-[color:var(--ds-color-neutral-150)]"
           >
             <X className="size-4" />
           </button>

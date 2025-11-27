@@ -212,9 +212,11 @@ export const Table: React.FC<TableProps> = ({
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
               padding: '8px 12px',
-              border: '1px solid #ddd',
+              border: '1px solid var(--ds-color-neutral-200)',
               borderRadius: '4px',
               width: '300px',
+              backgroundColor: 'var(--ds-color-surface-base)',
+              color: 'var(--ds-color-text-primary)',
             }}
           />
         </div>
@@ -268,8 +270,8 @@ export const Table: React.FC<TableProps> = ({
             disabled={currentPage === 1}
             style={{
               padding: '6px 12px',
-              border: '1px solid #ddd',
-              background: 'white',
+              border: '1px solid var(--ds-color-neutral-200)',
+              background: 'var(--ds-color-surface-base)',
               borderRadius: '4px',
               cursor: currentPage === 1 ? 'not-allowed' : 'pointer',
             }}
@@ -284,8 +286,8 @@ export const Table: React.FC<TableProps> = ({
             disabled={currentPage === totalPages}
             style={{
               padding: '6px 12px',
-              border: '1px solid #ddd',
-              background: 'white',
+              border: '1px solid var(--ds-color-neutral-200)',
+              background: 'var(--ds-color-surface-base)',
               borderRadius: '4px',
               cursor: currentPage === totalPages ? 'not-allowed' : 'pointer',
             }}

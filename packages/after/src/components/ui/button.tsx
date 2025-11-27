@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const primaryStyles =
-  "bg-[#1976d2] text-white border-[#1565c0] hover:bg-[#1565c0]"
+  "bg-[var(--ds-color-brand-primary-500)] text-[color:var(--ds-color-text-inverse)] border-[color:var(--ds-color-brand-primary-600)] hover:bg-[var(--ds-color-brand-primary-600)]"
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-[3px] border text-[14px] leading-[1.5] font-normal transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none",
   {
@@ -14,18 +14,18 @@ const buttonVariants = cva(
         default: primaryStyles,
         primary: primaryStyles,
         secondary:
-          "bg-[#f5f5f5] text-[#333333] border-[#dddddd] hover:bg-[#e0e0e0]",
+          "bg-[var(--ds-color-neutral-100)] text-[color:var(--ds-color-text-primary)] border-[color:var(--ds-color-neutral-200)] hover:bg-[var(--ds-color-neutral-150)]",
         danger:
-          "bg-[#d32f2f] text-white border-[#c62828] hover:bg-[#c62828]",
+          "bg-[var(--ds-color-feedback-danger-500)] text-[color:var(--ds-color-text-inverse)] border-[color:var(--ds-color-feedback-danger-600)] hover:bg-[var(--ds-color-feedback-danger-600)]",
         destructive:
-          "bg-[#d32f2f] text-white border-[#c62828] hover:bg-[#c62828]",
+          "bg-[var(--ds-color-feedback-danger-500)] text-[color:var(--ds-color-text-inverse)] border-[color:var(--ds-color-feedback-danger-600)] hover:bg-[var(--ds-color-feedback-danger-600)]",
         success:
-          "bg-[#388e3c] text-white border-[#2e7d32] hover:bg-[#2e7d32]",
+          "bg-[var(--ds-color-feedback-success-500)] text-[color:var(--ds-color-text-inverse)] border-[color:var(--ds-color-feedback-success-600)] hover:bg-[var(--ds-color-feedback-success-600)]",
         outline:
-          "bg-white text-[#333333] border-[#dddddd] hover:bg-[#f5f5f5]",
+          "bg-[var(--ds-color-surface-base)] text-[color:var(--ds-color-text-primary)] border-[color:var(--ds-color-neutral-200)] hover:bg-[var(--ds-color-neutral-100)]",
         ghost:
-          "bg-transparent text-[#1976d2] border-transparent hover:bg-[#e3f2fd]",
-        link: "bg-transparent border-transparent text-[#1976d2] underline-offset-4 hover:underline",
+          "bg-transparent text-[color:var(--ds-color-brand-primary-500)] border-transparent hover:bg-[var(--ds-color-brand-primary-50)]",
+        link: "bg-transparent border-transparent text-[color:var(--ds-color-brand-primary-500)] underline-offset-4 hover:underline",
       },
       size: {
         sm: "px-3 py-1.5 text-[13px]",

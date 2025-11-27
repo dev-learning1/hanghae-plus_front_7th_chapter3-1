@@ -3,9 +3,9 @@ import React from 'react';
 export const Header: React.FC = () => {
   return (
     <header style={{
-      backgroundColor: '#ffffff',
-      borderBottom: '1px solid #e5e7eb',
-      boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+      backgroundColor: 'var(--ds-color-surface-base)',
+      borderBottom: '1px solid var(--ds-color-border-subtle)',
+      boxShadow: 'var(--ds-shadow-card)',
       position: 'sticky',
       top: 0,
       zIndex: 1000,
@@ -28,12 +28,12 @@ export const Header: React.FC = () => {
           <div style={{
             width: '40px',
             height: '40px',
-            backgroundColor: '#007bff',
+            backgroundColor: 'var(--ds-color-brand-accent-500)',
             borderRadius: '8px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#ffffff',
+            color: 'var(--ds-color-text-inverse)',
             fontWeight: 'bold',
             fontSize: '20px',
           }}>
@@ -43,7 +43,7 @@ export const Header: React.FC = () => {
             <h1 style={{
               fontSize: '18px',
               fontWeight: '700',
-              color: '#1a202c',
+              color: 'var(--ds-color-text-strong)',
               margin: 0,
               lineHeight: 1,
             }}>
@@ -51,7 +51,7 @@ export const Header: React.FC = () => {
             </h1>
             <p style={{
               fontSize: '11px',
-              color: '#718096',
+              color: 'var(--ds-color-text-subtle)',
               margin: 0,
               lineHeight: 1,
               marginTop: '2px',
@@ -74,13 +74,13 @@ export const Header: React.FC = () => {
             <div style={{
               fontSize: '14px',
               fontWeight: '600',
-              color: '#1a202c',
+              color: 'var(--ds-color-text-strong)',
             }}>
               Demo User
             </div>
             <div style={{
               fontSize: '12px',
-              color: '#718096',
+              color: 'var(--ds-color-text-subtle)',
             }}>
               demo@example.com
             </div>
@@ -89,11 +89,11 @@ export const Header: React.FC = () => {
             width: '40px',
             height: '40px',
             borderRadius: '50%',
-            backgroundColor: '#e3f2fd',
+            backgroundColor: 'var(--ds-color-brand-primary-50)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#007bff',
+            color: 'var(--ds-color-brand-accent-500)',
             fontWeight: '600',
             fontSize: '16px',
           }}>

@@ -105,7 +105,7 @@ export const FormInput: React.FC<FormInputProps> = ({
       {label && (
         <label htmlFor={name} className="form-label">
           {label}
-          {required && <span style={{ color: '#d32f2f' }}>*</span>}
+          {required && <span style={{ color: 'var(--ds-color-feedback-danger-500)' }}>*</span>}
         </label>
       )}
 
