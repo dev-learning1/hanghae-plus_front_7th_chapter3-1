@@ -1,3 +1,4 @@
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { ManagementPage } from "@/pages/ManagementPage";
 
@@ -8,6 +9,7 @@ export const App = () => {
       <main>
         <ManagementPage />
       </main>
+      <ThemeToggle />
     </div>
   );
 };
