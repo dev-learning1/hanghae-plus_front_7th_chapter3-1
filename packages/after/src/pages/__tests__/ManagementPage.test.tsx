@@ -20,21 +20,18 @@ describe('ManagementPage - User Management', () => {
     const createButton = screen.getByRole('button', { name: '새로 만들기' });
     await user.click(createButton);
 
-    // name으로 input 찾기
+    // name으로 input과 select 직접 찾기
     await waitFor(() => {
       expect(document.querySelector('input[name="username"]')).toBeInTheDocument();
     });
 
     const usernameInput = document.querySelector('input[name="username"]') as HTMLInputElement;
     const emailInput = document.querySelector('input[name="email"]') as HTMLInputElement;
+    const roleSelect = document.querySelector('select[name="role"]') as HTMLSelectElement;
 
     await user.type(usernameInput, 'testuser');
     await user.type(emailInput, 'test@example.com');
-
-    const roleTrigger = screen.getByRole('combobox', { name: '역할' });
-    await user.click(roleTrigger);
-    const userOption = await screen.findByRole('option', { name: '사용자' });
-    await user.click(userOption);
+    await user.selectOptions(roleSelect, 'user');
 
     const createBtn = screen.getByRole('button', { name: '생성' });
     await user.click(createBtn);

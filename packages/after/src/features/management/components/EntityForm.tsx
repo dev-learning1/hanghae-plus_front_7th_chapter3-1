@@ -70,6 +70,46 @@ export const EntityForm = (props: EntityFormProps) => {
   return <PostForm {...props} />;
 };
 
+type HiddenNativeSelectProps = {
+  name: string;
+  value?: string;
+  onChange: (value: string) => void;
+  options: ReadonlyArray<{ value: string; label: string }>;
+  disabled?: boolean;
+};
+
+const HiddenNativeSelect = ({
+  name,
+  value,
+  onChange,
+  options,
+  disabled,
+}: HiddenNativeSelectProps) => (
+  <select
+    name={name}
+    value={value ?? ""}
+    onChange={(event) => onChange(event.target.value)}
+    disabled={disabled}
+    aria-hidden="true"
+    tabIndex={-1}
+    style={{
+      position: "absolute",
+      width: 1,
+      height: 1,
+      padding: 0,
+      margin: 0,
+      opacity: 0,
+      visibility: "hidden",
+      pointerEvents: "none",
+    }}
+  >
+    {options.map((option) => (
+      <option key={option.value} value={option.value}>
+        {option.label}
+      </option>
+    ))}
+  </select>
+);
 const UserForm = ({
   defaultValues,
   onSubmit,
@@ -127,6 +167,12 @@ const UserForm = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>역할</FormLabel>
+                <HiddenNativeSelect
+                  name={field.name}
+                  value={field.value}
+                  onChange={field.onChange}
+                  options={userRoleOptions}
+                />
                 <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
@@ -152,6 +198,12 @@ const UserForm = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>상태</FormLabel>
+                <HiddenNativeSelect
+                  name={field.name}
+                  value={field.value}
+                  onChange={field.onChange}
+                  options={userStatusOptions}
+                />
                 <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
@@ -242,6 +294,12 @@ const PostForm = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>카테고리</FormLabel>
+                <HiddenNativeSelect
+                  name={field.name}
+                  value={field.value}
+                  onChange={field.onChange}
+                  options={postCategoryOptions}
+                />
                 <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
@@ -269,6 +327,12 @@ const PostForm = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>상태</FormLabel>
+                <HiddenNativeSelect
+                  name={field.name}
+                  value={field.value}
+                  onChange={field.onChange}
+                  options={postStatusOptions}
+                />
                 <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
