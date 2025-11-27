@@ -5,7 +5,7 @@ import path from 'path'
 
 const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1] ?? 'hanghae-plus_front_7th_chapter3-1'
 const isPages = process.env.GITHUB_PAGES === 'true'
-const basePath = isPages ? `/${repoName}/` : '/'
+const basePath = isPages ? `/${repoName}/after/` : '/'
 
 
 // https://vite.dev/config/
