@@ -16,15 +16,28 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Playground: Story = {
-  render: () => {
-    const [page, setPage] = useState(1)
-    const totalPages = 12
+  args: {
+    page: 1,
+    totalPages: 12,
+    onPrev: () => {},
+    onNext: () => {},
+  },
+  render: (args) => {
+    const [page, setPage] = useState(args.page ?? 1)
+    const totalPages = args.totalPages ?? 1
     return (
       <PaginationControls
+        {...args}
         page={page}
         totalPages={totalPages}
-        onPrev={() => setPage((prev) => Math.max(1, prev - 1))}
-        onNext={() => setPage((prev) => Math.min(totalPages, prev + 1))}
+        onPrev={() => {
+          setPage((prev) => Math.max(1, prev - 1))
+          args.onPrev?.()
+        }}
+        onNext={() => {
+          setPage((prev) => Math.min(totalPages, prev + 1))
+          args.onNext?.()
+        }}
       />
     )
   },

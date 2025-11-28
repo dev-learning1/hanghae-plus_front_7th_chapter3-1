@@ -16,12 +16,23 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Playground: Story = {
-  render: () => {
+  args: {
+    open: false,
+    entityType: "post",
+    mode: "create",
+    onClose: () => {},
+    children: null,
+  },
+  render: (args) => {
     const [open, setOpen] = useState(false)
     return (
       <>
         <Button onClick={() => setOpen(true)}>다이얼로그 열기</Button>
-        <EntityDialog open={open} entityType="post" mode="create" onClose={() => setOpen(false)}>
+        <EntityDialog
+          {...args}
+          open={open}
+          onClose={() => setOpen(false)}
+        >
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="title">제목</Label>

@@ -27,7 +27,7 @@ export const UserFormStory: Story = {
     entityType: "user",
     mode: "edit",
     defaultValues: userDefaults,
-    onSubmit: async (values) => {
+    onSubmit: async (values: UserFormValues) => {
       action("submit")(values)
     },
     onCancel: action("cancel"),

@@ -12,6 +12,10 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Tones: Story = {
+  args: {
+    label: "Primary",
+    tone: "primary",
+  },
   render: () => (
     <div className="flex flex-wrap gap-3">
       <StatusBadge label="Primary" tone="primary" />

@@ -25,13 +25,18 @@ const metrics: StatMetric[] = [
 ]
 
 export const Default: Story = {
-  render: () => {
+  args: {
+    title: "콘텐츠 현황",
+    description: "게시물 상태와 주요 지표",
+    metrics,
+    entityType: "post" as EntityType,
+    onEntityChange: () => {},
+  },
+  render: (args) => {
     const [entityType, setEntityType] = useState<EntityType>("post")
     return (
       <EntityStats
-        title="콘텐츠 현황"
-        description="게시물 상태와 주요 지표"
-        metrics={metrics}
+        {...args}
         entityType={entityType}
         onEntityChange={setEntityType}
       />

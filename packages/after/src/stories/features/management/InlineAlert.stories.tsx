@@ -16,7 +16,12 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Variants: Story = {
-  render: () => {
+  args: {
+    title: "저장 완료",
+    variant: "success",
+    children: "변경 사항이 성공적으로 저장되었습니다.",
+  },
+  render: (args) => {
     const [visible, setVisible] = useState(true)
     if (!visible) {
       return (
@@ -30,8 +35,8 @@ export const Variants: Story = {
       )
     }
     return (
-      <InlineAlert title="저장 완료" variant="success" onClose={() => setVisible(false)}>
-        변경 사항이 성공적으로 저장되었습니다.
+      <InlineAlert {...args} onClose={() => setVisible(false)}>
+        {args.children}
       </InlineAlert>
     )
   },
